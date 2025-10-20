@@ -649,6 +649,7 @@ export type Database = {
           quantity: number
           status: string | null
           total_price: number
+          user_id: string | null
         }
         Insert: {
           additional_details?: string | null
@@ -666,6 +667,7 @@ export type Database = {
           quantity?: number
           status?: string | null
           total_price: number
+          user_id?: string | null
         }
         Update: {
           additional_details?: string | null
@@ -683,6 +685,7 @@ export type Database = {
           quantity?: number
           status?: string | null
           total_price?: number
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -1032,6 +1035,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          avatar_url: string | null
           created_at: string
           display_name: string | null
           email: string | null
@@ -1043,6 +1047,7 @@ export type Database = {
           shipping_address: string | null
         }
         Insert: {
+          avatar_url?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
@@ -1054,6 +1059,7 @@ export type Database = {
           shipping_address?: string | null
         }
         Update: {
+          avatar_url?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
@@ -1710,6 +1716,24 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       wishes: {
         Row: {
           created_at: string | null
@@ -1795,6 +1819,13 @@ export type Database = {
         Args: { user_id_param: string }
         Returns: Json[]
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       insert_sliding_photo: {
         Args:
           | {
@@ -1875,7 +1906,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       specification_type: {
@@ -2011,6 +2042,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
