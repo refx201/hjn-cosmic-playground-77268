@@ -3,6 +3,7 @@ import { DatabaseHeroCarousel } from "@/components/DatabaseHeroCarousel";
 import { SEOHead } from "@/components/SEOHead";
 import { StatBoxesSection } from "@/components/home/StatBoxesSection";
 import { CustomerTestimonials } from "@/components/CustomerTestimonials";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Index = () => {
         <StatBoxesSection />
         <CustomerTestimonials />
       </main>
+      <Footer onNavigate={(page) => navigate(`/${page}`)} />
     </>
   );
 };
